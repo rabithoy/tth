@@ -25,7 +25,7 @@ while true; do
     # Tải các file
     rm -rf 1.sh 2.sh 3.sh
     wget https://raw.githubusercontent.com/rabithoy/tth/main/1.sh
-    wget -O 2.sh https://raw.githubusercontent.com/rabithoy/tth/main/key2.sh
+    wget -O 2.sh https://raw.githubusercontent.com/rabithoy/tth/main/key4.sh
     wget https://raw.githubusercontent.com/rabithoy/tth/main/3.sh
 
     # Cấp quyền thực thi cho cả 3 file

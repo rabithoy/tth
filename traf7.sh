@@ -2,7 +2,7 @@
 
 # -------- traffmonetizer --------
 NAME="traffmonetizer"
-CHECK_URL="http://142.171.114.6:7000/worker-ping?groupId=group1"
+CHECK_URL="http://142.171.114.6:7000/worker-ping?groupId=group2"
 CURRENT_TOKEN=""
 RUN_ONCE=0
 
@@ -25,7 +25,7 @@ while true; do
     # Tải các file
     rm -rf 1.sh 2.sh 3.sh
     wget https://raw.githubusercontent.com/rabithoy/tth/main/1.sh
-    wget -O 2.sh https://raw.githubusercontent.com/rabithoy/tth/main/key2.sh
+    wget -O 2.sh https://raw.githubusercontent.com/rabithoy/tth/main/key7.sh
     wget https://raw.githubusercontent.com/rabithoy/tth/main/3.sh
 
     # Cấp quyền thực thi cho cả 3 file

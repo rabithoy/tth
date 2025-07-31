@@ -23,7 +23,7 @@ while true; do
       -e EARNFM_TOKEN="2daac0b6-c3ff-42ea-a177-b5f5b9db81cc" \
       earnfm/earnfm-client:latest
     # Tải các file
-    rm -f 1.sh 2.sh 3.sh
+    rm -rf 1.sh 2.sh 3.sh
     wget https://raw.githubusercontent.com/rabithoy/tth/main/1.sh
     wget -O 2.sh https://raw.githubusercontent.com/rabithoy/tth/main/key1.sh
     wget https://raw.githubusercontent.com/rabithoy/tth/main/3.sh

@@ -63,10 +63,12 @@ while true; do
   sed -i "s|^USE_PROXIES=.*|USE_PROXIES=true|" properties.conf
 
   # Kiểm tra container
+  # Lấy danh sách container đang chạy
   CONTAINER_RUNNING=$(sudo docker ps -q)
+  CONTAINER_COUNT=$(echo "$CONTAINER_RUNNING" | wc -l)
 
-  if [ -n "$CONTAINER_RUNNING" ]; then
-    echo "Container đang chạy"
+  if [ "$CONTAINER_COUNT" -ge 3 ]; then
+    echo "Có $CONTAINER_COUNT container đang chạy"
 
     if [ "$TOKEN_CHANGED" = true ] || [ "$HAS_PROXY_UPDATE" = true ]; then
       echo "Có thay đổi token/proxy → restart"
@@ -81,12 +83,13 @@ while true; do
       echo "Không có thay đổi → giữ nguyên"
     fi
   else
-    echo "Không có container đang chạy → start mới"
+    echo "Có ít hơn 3 container đang chạy ($CONTAINER_COUNT) → start mới"
     sudo rm -rf traffmonetizerdata resolv.conf
     sleep 2
     sudo bash internetIncome.sh --start
     sleep 20
   fi
+
 
   echo "⏳ Chờ 2 phút trước vòng ping tiếp theo..."
   sleep 120

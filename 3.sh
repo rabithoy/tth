@@ -2,7 +2,7 @@
 
 # 🧩 Bước 1: Tải nếu chưa có main.zip
 if [ ! -f "main.zip" ]; then
-  wget -O main.zip https://github.com/engageub/InternetIncome/archive/refs/heads/main.zip
+  wget -O https://github.com/rabithoy/tth/archive/refs/heads/main.zip
 fi
 
 # 🧩 Bước 2: Giải nén đè

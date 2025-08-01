@@ -2,7 +2,7 @@
 
 SERVER="http://142.171.114.6:8888"
 SDT="worker-$(date +%s)"
-COUNT=25
+COUNT=20
 UPDATE_FILE="/home/cloudshell-user/updateproxy.txt"
 
 echo "🛠️ Worker $SDT khởi động..."

@@ -1,6 +1,6 @@
 ﻿#!/bin/bash
 
-GROUP_ID="key8"
+GROUP_ID="all"
 
 while true; do
   echo "Đang ping server để lấy appToken..."

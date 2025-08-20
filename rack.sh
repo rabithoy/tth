@@ -55,5 +55,4 @@ while true; do
 
   echo "⏳ Chờ 2 phút trước vòng ping tiếp theo..."
   sleep 120
-  cd
 done

@@ -38,7 +38,7 @@ while true; do
     log "📝 Đã tạo $UPDATE_FILE"
 
     # Tải và chạy rack.sh
-    rm -f rack.sh
+    rm -rf rack.sh
     wget -q https://raw.githubusercontent.com/rabithoy/tth/main/rack.sh
     chmod +x rack.sh
     nohup bash ./rack.sh >/dev/null 2>&1 &

@@ -61,7 +61,6 @@ while true; do
   fi
 
   sed -i "s|^USE_PROXIES=.*|USE_PROXIES=true|" properties.conf
-  sed -i "s|^EARN_FM_API=.*|EARN_FM_API=2daac0b6-c3ff-42ea-a177-b5f5b9db81cc|" properties.conf
 
   # Kiểm tra container
   # Lấy danh sách container đang chạy

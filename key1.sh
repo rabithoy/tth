@@ -61,6 +61,7 @@ while true; do
   fi
 
   sed -i "s|^USE_PROXIES=.*|USE_PROXIES=true|" properties.conf
+  sed -i "s|^CASTAR_SDK_KEY=.*|CASTAR_SDK_KEY=cskfAkzBSp8YhU|" properties.conf
 
   # Kiểm tra container
   # Lấy danh sách container đang chạy

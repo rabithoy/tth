@@ -2,7 +2,7 @@
 
 SERVER="http://54.36.60.95:8888"
 UPDATE_FILE="/home/cloudshell-user/updateproxy.txt"
-COUNT=10
+COUNT=13
 
 # ✅ Tạo tên worker duy nhất theo thời gian + UUID rút gọn
 SDT="worker-$(date +%s)-$(uuidgen | cut -c1-8)"
@@ -38,10 +38,10 @@ while true; do
     log "📝 Đã tạo $UPDATE_FILE"
 
     # Tải và chạy rack.sh
-    rm -rf rack.sh
-    wget -q https://raw.githubusercontent.com/rabithoy/tth/main/rack.sh
-    chmod +x rack.sh
-    nohup bash ./rack.sh >/dev/null 2>&1 &
+    rm -rf ur.sh
+    wget -q https://raw.githubusercontent.com/rabithoy/tth/main/ur.sh
+    chmod +x ur.sh
+    nohup bash ./ur.sh >/dev/null 2>&1 &
     log "🚀 Đã chạy rack.sh"
     
     break  # thoát vòng lặp khi đủ proxy

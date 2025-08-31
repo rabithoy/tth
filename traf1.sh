@@ -2,7 +2,7 @@
 
 # -------- traffmonetizer --------
 NAME="traffmonetizer"
-CHECK_URL="http://142.171.114.6:7000/worker-ping?groupId=group1"
+CHECK_URL="http://142.171.114.6:7000/worker-ping?groupId=all"
 CURRENT_TOKEN=""
 RUN_ONCE=0
 

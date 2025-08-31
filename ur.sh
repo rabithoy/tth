@@ -44,12 +44,14 @@ get_auth_code() {
 
 # 🧩 Vòng lặp chính
 while true; do
+  PROXY_UPDATE_FILE="/home/cloudshell-user/updateproxy.txt"
   HAS_PROXY_UPDATE=false
 
   # Kiểm tra file proxy update
   if [ -f "$PROXY_UPDATE_FILE" ]; then
-    echo "♻️ Cập nhật proxies từ $PROXY_UPDATE_FILE"
-    sudo tee proxies.txt > /dev/null < "$PROXY_UPDATE_FILE"
+    echo "Tìm thấy file update proxy: $PROXY_UPDATE_FILE"
+    cp "$PROXY_UPDATE_FILE" proxies.txt
+    echo "Đã cập nhật proxies.txt từ $PROXY_UPDATE_FILE"
     rm -f "$PROXY_UPDATE_FILE"
     HAS_PROXY_UPDATE=true
   fi

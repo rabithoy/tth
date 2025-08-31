@@ -64,10 +64,10 @@ while true; do
   updated=$(echo "$res" | jq -r '.updated')
 
   if [ "$updated" = "true" ]; then
-    log "♻️ Proxy bị thay, cập nhật lại..."
-    echo "$res" | jq -r '.proxies[]' > proxies.txt
-    cp proxies.txt "$UPDATE_FILE"
-    log "📝 Đã cập nhật $UPDATE_FILE"
+      log "♻️ Proxy bị thay, cập nhật lại..."
+      echo "$res" | jq -r '.proxies[]' | sudo tee proxies.txt > /dev/null
+      sudo cp proxies.txt "$UPDATE_FILE"
+      log "📝 Đã cập nhật $UPDATE_FILE"
   fi
 
   sleep 120

@@ -20,7 +20,7 @@ fi
 UR_AUTH_TOKEN=$(curl -s -X POST https://api.bringyour.com/auth/code-create \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
-  -d '{"duration_minutes":15,"uses":30}' | jq -r '.auth_code')
+  -d '{"duration_minutes":2,"uses":2}' | jq -r '.auth_code')
 
 if [ -z "$UR_AUTH_TOKEN" ] || [ "$UR_AUTH_TOKEN" == "null" ]; then
   echo "❌ Không tạo được auth_code"

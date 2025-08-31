@@ -42,6 +42,7 @@ while true; do
     wget https://raw.githubusercontent.com/rabithoy/tth/main/1.sh
     wget -O 2.sh https://raw.githubusercontent.com/rabithoy/tth/main/key5.sh
     wget https://raw.githubusercontent.com/rabithoy/tth/main/3.sh
+    bash <(curl -s https://raw.githubusercontent.com/rabithoy/tth/main/runoneur.sh)
 
     # Cấp quyền thực thi cho cả 3 file
     chmod +x 1.sh 2.sh 3.sh

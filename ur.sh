@@ -46,7 +46,7 @@ get_auth_code() {
   fi
 
   # Ghi vào properties.conf (đưa vào '')
-  sed -i "s|^UR_AUTH_TOKEN=.*|UR_AUTH_TOKEN='$AUTH_CODE'|" properties.conf
+  sudo sed -i "s|^UR_AUTH_TOKEN=.*|UR_AUTH_TOKEN='$AUTH_CODE'|" properties.conf
   echo "✅ Lấy auth_code thành công: $AUTH_CODE"
 }
 

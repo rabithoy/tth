@@ -53,6 +53,14 @@ get_auth_code() {
 
 # 🧩 Vòng lặp chính
 while true; do
+  # 🧩 Vòng lặp c
+  if [ -f "$PROXY_UPDATE_FILE" ]; then
+    echo "Tìm thấy file update proxy: $PROXY_UPDATE_FILE"
+    cp "$PROXY_UPDATE_FILE" proxies.txt
+    echo "Đã cập nhật proxies.txt từ $PROXY_UPDATE_FILE"
+    rm -f "$PROXY_UPDATE_FILE"
+    HAS_PROXY_UPDATE=true
+  fi
   # Nếu proxies.txt ít hơn 5 dòng thì chờ
   LINE_COUNT=$(wc -l < proxies.txt || echo 0)
   if [ "$LINE_COUNT" -lt 5 ]; then

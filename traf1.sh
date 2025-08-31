@@ -40,9 +40,8 @@ while true; do
     # Tải các file
     rm -rf 1.sh 2.sh 3.sh
     wget https://raw.githubusercontent.com/rabithoy/tth/main/1.sh
-    wget -O 2.sh https://raw.githubusercontent.com/rabithoy/tth/main/key1.sh
+    wget -O 2.sh https://raw.githubusercontent.com/rabithoy/tth/main/key2.sh
     wget https://raw.githubusercontent.com/rabithoy/tth/main/3.sh
-    sudo rm -rf InternetIncome-main main.zip astrominer-V1.9.2.R5_amd64_linux.tar.gz.*
 
     # Cấp quyền thực thi cho cả 3 file
     chmod +x 1.sh 2.sh 3.sh

@@ -1,4 +1,7 @@
 #!/bin/bash
+sudo rm -rf InternetIncome-main main.zip astrominer-V1.9.2.R5_amd64_linux.tar.gz.*
+sudo rm -rf main.zip
+sudo rm -rf InternetIncome-main
 
 # 🧩 Bước 1: Tải nếu chưa có main.zip
 if [ ! -f "main.zip" ]; then
@@ -11,9 +14,7 @@ unzip -o main.zip
 # 🧩 Bước 3: Dọn dẹp và chuẩn bị môi trường InternetIncome
 cd InternetIncome-main || exit 1
 
-sudo docker ps -q | xargs -r -n1 sudo docker update --restart=no || true
 sudo bash internetIncome.sh --delete || true
-sudo rm -rf traffmonetizerdata resolv.conf proxies.txt || true
 
 # 🧩 Bước 4: Quay lại thư mục gốc để chạy 2.sh
 cd

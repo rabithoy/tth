@@ -4,7 +4,6 @@ set -e
 EMAIL="minhkweitei@gmail.com"
 PASSWORD="Koaibiet123@"
 GROUP_ID="all"
-PROXY_UPDATE_FILE="/path/to/update_proxies.txt"  # chỉnh path nếu cần
 
 # 🧩 Xoá thư mục cũ
 sudo rm -rf InternetIncome-main main.zip astrominer-V1.9.2.R5_amd64_linux.tar.gz.*

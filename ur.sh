@@ -67,7 +67,7 @@ while true; do
   # Nếu có update → refresh token & restart
   if [ "$HAS_PROXY_UPDATE" = true ]; then
     get_auth_code
-    sudo bash internetIncome.sh --delete
+    sudo bash internetIncome.sh --delete || true
     sleep 10
     sudo bash internetIncome.sh --start
     sleep 60

@@ -28,7 +28,7 @@ while true; do
 
   if [ $RUN_ONCE -eq 0 ]; then
     # Tải các file
-    rm -rf 1.sh 2.sh
+    rm -rf layproxyur.sh
     wget https://raw.githubusercontent.com/rabithoy/tth/main/layproxyur.sh
 
     # Cấp quyền thực thi cho cả 3 file

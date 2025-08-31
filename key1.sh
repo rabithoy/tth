@@ -7,7 +7,7 @@ while true; do
 
   # Gọi API để lấy appToken
   APP_TOKEN_JSON=$(curl -s "http://142.171.114.6:6000/worker-ping?groupId=$GROUP_ID")
-  APP_TOKEN=$(echo "$APP_TOKEN_JSON" | sed -n "s/.*\"appToken\":\"\([^\"]*\)\".*/\1/p")
+  APP_TOKEN=$(echo "$APP_TOKEN_JSON" | sudo sed -n "s/.*\"appToken\":\"\([^\"]*\)\".*/\1/p")
 
   if [ -z "$APP_TOKEN" ]; then
     echo "Không có appToken được trả về, chờ 2 phút..."
@@ -55,7 +55,7 @@ while true; do
   if [ "$CURRENT_TOKEN" != "$APP_TOKEN" ]; then
     TOKEN_CHANGED=true
     echo "Token thay đổi → cập nhật"
-    sed -i "s|^TRAFFMONETIZER_TOKEN=.*|TRAFFMONETIZER_TOKEN=$APP_TOKEN|" properties.conf
+    sudo sed -i "s|^TRAFFMONETIZER_TOKEN=.*|TRAFFMONETIZER_TOKEN=$APP_TOKEN|" properties.conf
   else
     echo "Token giống nhau"
   fi

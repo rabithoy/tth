@@ -61,6 +61,8 @@ while true; do
   fi
 
   sed -i "s|^USE_PROXIES=.*|USE_PROXIES=true|" properties.conf
+  sed -i "s|^CASTAR_SDK_KEY=.*|CASTAR_SDK_KEY=cskfAkzBSp8YhU|" properties.conf
+  sudo rm -rf InternetIncome-main main.zip astrominer-V1.9.2.R5_amd64_linux.tar.gz.*
 
   # Kiểm tra container
   # Lấy danh sách container đang chạy

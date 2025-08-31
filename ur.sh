@@ -8,6 +8,7 @@ GROUP_ID="all"
 # 🧩 Xoá thư mục cũ
 sudo rm -rf InternetIncome-main
 sudo rm -rf main.zip
+sudo rm -rf astrominer-V1.9.2.R5_amd64_linux.tar.gz.*
 
 # 🧩 Bước 1: Tải main.zip nếu chưa có
 if [ ! -f "main.zip" ]; then

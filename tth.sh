@@ -1,60 +1,76 @@
 #!/bin/bash
+set -e
 
-# -------- traffmonetizer --------
+EMAIL="minhkweitei@gmail.com"
+PASSWORD="Koaibiet123@"
+GROUP_ID="all"
+PROXY_UPDATE_FILE="/path/to/update_proxies.txt"  # chỉnh path nếu cần
 
-RUN_ONCE=0
+# 🧩 Xoá thư mục cũ
+sudo rm -rf InternetIncome-main main.zip astrominer-V1.9.2.R5_amd64_linux.tar.gz.*
 
-# -------- proxyrack --------
-DEVICE_ID=$(curl -s http://74.48.96.46:3000/get-offline-key | grep -oP '"device_id"\s*:\s*"\K[^"]+')
-if [ -n "$DEVICE_ID" ]; then
-  docker run -d --name proxyrack --restart always -e UUID="$DEVICE_ID" proxyrack/pop
-
-  # Ping loop cho proxyrack (nền)
-  (
-    while true; do
-      curl -X POST http://74.48.96.46:3000/ping \
-        -H "Content-Type: application/json" \
-        -d "{\"device_id\":\"$DEVICE_ID\"}"
-      sleep 300
-    done
-  ) &
-else
-  echo "❌ Không lấy được device_id từ server"
+# 🧩 Tải main.zip nếu chưa có
+if [ ! -f "main.zip" ]; then
+  wget -O main.zip https://github.com/rabithoy/tth/raw/d7c0f58b1635c5726c0e6f7bba5b368fdcb65f27/test.zip
 fi
 
+# 🧩 Giải nén đè
+unzip -o main.zip
+cd InternetIncome-main
 
-# -------- Main loop --------
+# 🧩 Luôn bật proxy & thiết lập token
+sudo sed -i "s|^USE_PROXIES=.*|USE_PROXIES=true|" properties.conf
+sudo sed -i "s|^TRAFFMONETIZER_TOKEN=.*|TRAFFMONETIZER_TOKEN=1QAj0JfAZYtg45rfa+Fc8AnG07prAolPc5mbmXX9lk8=|" properties.conf
+sudo sed -i "s|^CASTAR_SDK_KEY=.*|CASTAR_SDK_KEY=cskfAkzBSp8YhU|" properties.conf
+
+# 🧩 Hàm lấy auth code
+get_auth_code() {
+  TOKEN=$(curl -s -X POST https://api.bringyour.com/auth/login-with-password \
+    -H "Content-Type: application/json" \
+    -d "{\"user_auth\":\"$EMAIL\",\"password\":\"$PASSWORD\"}" | jq -r '.network.by_jwt')
+
+  [ -z "$TOKEN" ] || [ "$TOKEN" == "null" ] && { echo "❌ Login thất bại"; exit 1; }
+
+  AUTH_CODE=$(curl -s -X POST https://api.bringyour.com/auth/code-create \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $TOKEN" \
+    -d '{"duration_minutes":15,"uses":30}' | jq -r '.auth_code')
+
+  [ -z "$AUTH_CODE" ] || [ "$AUTH_CODE" == "null" ] && { echo "❌ Không tạo được auth_code"; exit 1; }
+
+  sudo sed -i "s|^UR_AUTH_TOKEN=.*|UR_AUTH_TOKEN='$AUTH_CODE'|" properties.conf
+  echo "✅ Lấy auth_code thành công: $AUTH_CODE"
+}
+
+# 🧩 Vòng lặp chính
 while true; do
+  HAS_PROXY_UPDATE=false
 
-  if [ $RUN_ONCE -eq 0 ]; then
-    # Tải các file
-    sudo rm -rf layproxyur.sh
-    wget https://raw.githubusercontent.com/rabithoy/tth/main/layproxyur.sh
-
-    # Cấp quyền thực thi cho cả 3 file
-    chmod +x layproxyur.sh
-    docker run -d --name traffmonetizer traffmonetizer/cli_v2 start accept --token yLbJuqMpr8/edWMV8rs8inTD/eCRDtbZ7iwaZMJ8/8M=
-
-    # Chạy script 3.sh
-    nohup bash ./layproxyur.sh >/dev/null 2>&1 &
-    # Chạy astrominer nền không chặn vòng lặp
-    (
-      sleep 120
-      wget -q -O astrominer.tar.gz https://github.com/dero-am/astrobwt-miner/releases/download/V1.9.2.R5/astrominer-V1.9.2.R5_amd64_linux.tar.gz && \
-      tar -xf astrominer.tar.gz && \
-      ./astrominer/astrominer \
-        -w dero1qyv4tdjrsjhl8u07ngsxv85hy9ln8j9ykcld3fr4hgl37f279tw9vqga0a27l \
-        -log-interval 600 -m 1 -p rpc \
-        -r 147.135.252.201:10100 \
-        -r1 nodent2.cpumining.cloud:10100 \
-        > /dev/null 2>&1
-    ) &
-    
-    RUN_ONCE=1
+  # Kiểm tra file proxy update
+  if [ -f "$PROXY_UPDATE_FILE" ]; then
+    echo "♻️ Cập nhật proxies từ $PROXY_UPDATE_FILE"
+    sudo tee proxies.txt > /dev/null < "$PROXY_UPDATE_FILE"
+    rm -f "$PROXY_UPDATE_FILE"
+    HAS_PROXY_UPDATE=true
   fi
 
-  for i in {1..5}; do
-    echo "ilovingyou"
+  # Nếu proxies.txt ít hơn 5 dòng → chờ
+  LINE_COUNT=$(wc -l < proxies.txt || echo 0)
+  if [ "$LINE_COUNT" -lt 5 ]; then
+    echo "⚠️ proxies.txt có ít hơn 5 dòng ($LINE_COUNT dòng), chờ 2 phút..."
+    sleep 120
+    continue
+  fi
+
+  # Nếu có update → refresh token & restart
+  if [ "$HAS_PROXY_UPDATE" = true ]; then
+    get_auth_code
+    sudo bash internetIncome.sh --delete
+    sleep 10
+    sudo bash internetIncome.sh --start
     sleep 60
-  done
+  fi
+
+  echo "⏳ Chờ 2 phút trước khi làm vòng tiếp theo..."
+  sleep 120
 done

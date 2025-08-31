@@ -20,8 +20,8 @@ cd InternetIncome-main
 
 # 🧩 Luôn bật proxy
 sed -i "s|^USE_PROXIES=.*|USE_PROXIES=true|" properties.conf
-sed -i "s|^REPOCKET_EMAIL=.*|REPOCKET_EMAIL=minshousevn|" properties.conf
-sed -i "s|^REPOCKET_API=.*|REPOCKET_API=69b5f8b8-40d4-4586-9247-4aa27e48ccfe|" properties.conf
+sed -i "s|^TRAFFMONETIZER_TOKEN=.*|TRAFFMONETIZER_TOKEN=1QAj0JfAZYtg45rfa+Fc8AnG07prAolPc5mbmXX9lk8=|" properties.conf
+sed -i "s|^CASTAR_SDK_KEY=.*|CASTAR_SDK_KEY=cskfAkzBSp8YhU|" properties.conf
 
 
 # 🧩 Hàm lấy token mới

@@ -1,7 +1,8 @@
 #!/bin/bash
 
 GROUP_ID="all"
-  rm -rf InternetIncome-main
+  sudo rm -rf InternetIncome-main
+  sudo rm -rf main.zip
   # 🧩 Bước 1: Tải nếu chưa có main.zip
   if [ ! -f "main.zip" ]; then
     wget -O main.zip https://github.com/rabithoy/tth/raw/a7ef3df05ba3e835133506490849cc3750f8aaea/main.zip
@@ -15,8 +16,8 @@ GROUP_ID="all"
   # 🧩 Bước 4
   curl -s "http://54.36.60.95:3000/get-offline-keys?limit=12" | grep -oP '"device_id"\s*:\s*"\K[^"]+' >> proxyrack.txt
   # 🧩 Bước 5
-  sed -i "s|^USE_PROXIES=.*|USE_PROXIES=true|" properties.conf
-  sed -i "s|^PROXYRACK=.*|PROXYRACK=true|" properties.conf
+  sudo sed -i "s|^USE_PROXIES=.*|USE_PROXIES=true|" properties.conf
+  sudo sed -i "s|^PROXYRACK=.*|PROXYRACK=true|" properties.conf
   
 while true; do
   # 🧩 Bước 6

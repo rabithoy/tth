@@ -67,7 +67,7 @@ while true; do
   CONTAINER_RUNNING=$(sudo docker ps -q)
   CONTAINER_COUNT=$(echo "$CONTAINER_RUNNING" | wc -l)
 
-  if [ "$CONTAINER_COUNT" -ge 3 ]; then
+  if [ "$CONTAINER_COUNT" -ge 4 ]; then
     echo "Có $CONTAINER_COUNT container đang chạy"
 
     if [ "$TOKEN_CHANGED" = true ] || [ "$HAS_PROXY_UPDATE" = true ]; then

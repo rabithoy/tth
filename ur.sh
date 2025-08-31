@@ -70,10 +70,14 @@ while true; do
   fi
 
   # Refresh token & restart InternetIncome
-  get_auth_code
-  sudo bash internetIncome.sh --delete || true
-  sleep 10
-  sudo bash internetIncome.sh --start
+  
+    if [ "$HAS_PROXY_UPDATE" = true ]; then
+      get_auth_code
+      sudo bash internetIncome.sh --delete
+      sleep 10
+      sudo bash internetIncome.sh --start
+      sleep 60
+    else
 
   echo "⏳ Chờ 2 phút trước khi làm mới token..."
   sleep 120

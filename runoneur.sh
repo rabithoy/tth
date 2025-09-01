@@ -7,37 +7,27 @@ urnetwork_data_folder="urnetwork_data"
 UNIQUE_ID=1
 container_pulled=false
 
-# 🧩 Hàm lấy UR_AUTH_TOKEN với retry
-get_ur_token() {
-  while true; do
-    TOKEN=$(curl -s -X POST https://api.bringyour.com/auth/login-with-password \
-      -H "Content-Type: application/json" \
-      -d "{\"user_auth\":\"$EMAIL\",\"password\":\"$PASSWORD\"}" | jq -r '.network.by_jwt')
+# 🧩 Lấy UR_AUTH_TOKEN 1 lần
+TOKEN=$(curl -s -X POST https://api.bringyour.com/auth/login-with-password \
+  -H "Content-Type: application/json" \
+  -d "{\"user_auth\":\"$EMAIL\",\"password\":\"$PASSWORD\"}" | jq -r '.network.by_jwt')
 
-    if [ -z "$TOKEN" ] || [ "$TOKEN" == "null" ]; then
-      echo "❌ Login thất bại, thử lại sau 5 phút..."
-      sleep 300
-      continue
-    fi
+if [ -z "$TOKEN" ] || [ "$TOKEN" == "null" ]; then
+  echo "❌ Login thất bại, không lấy được JWT token"
+  exit 1
+fi
 
-    UR_AUTH_TOKEN=$(curl -s -X POST https://api.bringyour.com/auth/code-create \
-      -H "Content-Type: application/json" \
-      -H "Authorization: Bearer $TOKEN" \
-      -d '{"duration_minutes":2,"uses":2}' | jq -r '.auth_code')
+UR_AUTH_TOKEN=$(curl -s -X POST https://api.bringyour.com/auth/code-create \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{"duration_minutes":2,"uses":2}' | jq -r '.auth_code')
 
-    if [ -z "$UR_AUTH_TOKEN" ] || [ "$UR_AUTH_TOKEN" == "null" ]; then
-      echo "❌ Không tạo được auth_code, thử lại sau 5 phút..."
-      sleep 300
-      continue
-    fi
+if [ -z "$UR_AUTH_TOKEN" ] || [ "$UR_AUTH_TOKEN" == "null" ]; then
+  echo "❌ Không tạo được auth_code"
+  exit 1
+fi
 
-    echo "✅ UR_AUTH_TOKEN: $UR_AUTH_TOKEN"
-    break
-  done
-}
-
-# 🧩 Lấy token
-get_ur_token
+echo "✅ UR_AUTH_TOKEN: $UR_AUTH_TOKEN"
 
 # 🧩 Chạy container URnetwork
 if [[ $UR_AUTH_TOKEN ]]; then

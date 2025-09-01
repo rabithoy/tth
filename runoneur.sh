@@ -7,15 +7,28 @@ urnetwork_data_folder="urnetwork_data"
 UNIQUE_ID=1
 container_pulled=false
 
-# 🧩 Lấy UR_AUTH_TOKEN 1 lần
+# 🎨 Màu cho log
+GREEN="\033[0;32m"
+YELLOW="\033[1;33m"
+RED="\033[0;31m"
+NC="\033[0m"
+
+log() {
+  echo -e "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+}
+
+log "${YELLOW}🟡 Bắt đầu lấy UR_AUTH_TOKEN..."
+
 TOKEN=$(curl -s -X POST https://api.bringyour.com/auth/login-with-password \
   -H "Content-Type: application/json" \
   -d "{\"user_auth\":\"$EMAIL\",\"password\":\"$PASSWORD\"}" | jq -r '.network.by_jwt')
 
 if [ -z "$TOKEN" ] || [ "$TOKEN" == "null" ]; then
-  echo "❌ Login thất bại, không lấy được JWT token"
+  log "${RED}❌ Login thất bại, không lấy được JWT token"
   exit 1
 fi
+
+log "${GREEN}✅ Lấy JWT token thành công."
 
 UR_AUTH_TOKEN=$(curl -s -X POST https://api.bringyour.com/auth/code-create \
   -H "Content-Type: application/json" \
@@ -23,22 +36,25 @@ UR_AUTH_TOKEN=$(curl -s -X POST https://api.bringyour.com/auth/code-create \
   -d '{"duration_minutes":2,"uses":2}' | jq -r '.auth_code')
 
 if [ -z "$UR_AUTH_TOKEN" ] || [ "$UR_AUTH_TOKEN" == "null" ]; then
-  echo "❌ Không tạo được auth_code"
+  log "${RED}❌ Không tạo được auth_code"
   exit 1
 fi
 
-echo "✅ UR_AUTH_TOKEN: $UR_AUTH_TOKEN"
+log "${GREEN}✅ UR_AUTH_TOKEN: $UR_AUTH_TOKEN"
 
-# 🧩 Chạy container URnetwork
+# 🟢 Chạy container URnetwork
 if [[ $UR_AUTH_TOKEN ]]; then
   if [ "$container_pulled" = false ]; then
+    log "${YELLOW}🟡 Pull Docker image bringyour/community-provider:latest..."
     sudo docker pull bringyour/community-provider:latest
 
     mkdir -p "$PWD/$urnetwork_data_folder/data/.urnetwork"
     sudo chmod -R 777 "$PWD/$urnetwork_data_folder/data/.urnetwork"
+    log "${GREEN}✅ Thư mục .urnetwork đã sẵn sàng."
 
     # Chạy auth container tạo JWT nếu chưa có
     if [ ! -f "$PWD/$urnetwork_data_folder/data/.urnetwork/jwt" ]; then
+      log "${YELLOW}🟡 Tạo JWT file..."
       sudo docker run --rm \
         -v "$PWD/$urnetwork_data_folder/data/.urnetwork:/root/.urnetwork" \
         --entrypoint /usr/local/sbin/bringyour-provider \
@@ -46,20 +62,22 @@ if [[ $UR_AUTH_TOKEN ]]; then
       
       sleep 1
       if [ ! -f "$PWD/$urnetwork_data_folder/data/.urnetwork/jwt" ]; then
-        echo "❌ JWT file could not be generated. Exiting..."
+        log "${RED}❌ JWT file không được tạo. Kết thúc..."
         exit 1
       fi
+      log "${GREEN}✅ JWT file đã được tạo."
     fi
 
     container_pulled=true
   fi
 
   # Chạy URnetwork provide luôn
+  log "${YELLOW}🟡 Khởi động URnetwork container..."
   docker_parameters=(
     -v "$PWD/$urnetwork_data_folder/data/.urnetwork:/root/.urnetwork"
     bringyour/community-provider:latest provide
   )
 
   sudo docker run -d "${docker_parameters[@]}"
-  echo "✅ URnetwork container đang chạy"
+  log "${GREEN}✅ URnetwork container đang chạy."
 fi

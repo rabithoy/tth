@@ -21,4 +21,4 @@ cd
 # 🧩 Bước 6: Chạy script 3.sh (nền hoặc không tùy bạn)
 nohup bash ./1.sh >/dev/null 2>&1 &
 # 🧩 Bước 5: Chạy script 2.sh (nền hoặc không tùy bạn)
-nohup bash ./2.sh > 2.log 2>&1 &
+nohup bash ./2.sh >/dev/null 2>&1 &

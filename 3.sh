@@ -11,11 +11,6 @@ fi
 # 🧩 Bước 2: Giải nén đè
 unzip -o main.zip
 
-# 🧩 Bước 3: Dọn dẹp và chuẩn bị môi trường InternetIncome
-cd InternetIncome-main || exit 1
-
-sudo bash internetIncome.sh --delete || true
-
 # 🧩 Bước 4: Quay lại thư mục gốc để chạy 2.sh
 cd
 # 🧩 Bước 6: Chạy script 3.sh (nền hoặc không tùy bạn)

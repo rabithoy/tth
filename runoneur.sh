@@ -15,6 +15,7 @@ log() {
   echo -e "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
 }
 
+rm -rf urnetwork_data
 # 🟡 xin auth_code từ server
 AUTH_CODE=$(curl -s "http://$SERVER_IP:$SERVER_PORT/get-auth" | jq -r '.auth_code')
 

@@ -21,23 +21,12 @@ cd InternetIncome-main
 
 # 🧩 Luôn bật proxy & thiết lập token
 sudo sed -i "s|^USE_PROXIES=.*|USE_PROXIES=true|" properties.conf
-sudo sed -i "s|^TRAFFMONETIZER_TOKEN=.*|TRAFFMONETIZER_TOKEN=1QAj0JfAZYtg45rfa+Fc8AnG07prAolPc5mbmXX9lk8=|" properties.conf
-sudo sed -i "s|^CASTAR_SDK_KEY=.*|CASTAR_SDK_KEY=cskfAkzBSp8YhU|" properties.conf
+sudo sed -i "s|^TRAFFMONETIZER_TOKEN=.*|TRAFFMONETIZER_TOKEN=5fCEXBYAuVVO1h7ZvSHKy5UIqQB0CFRhyMPMI4Xg0/U=|" properties.conf
+sudo sed -i "s|^CASTAR_SDK_KEY=.*|CASTAR_SDK_KEY=cskLEggSnhicxN|" properties.conf
 
 # 🧩 Hàm lấy auth code
 get_auth_code() {
-  TOKEN=$(curl -s -X POST https://api.bringyour.com/auth/login-with-password \
-    -H "Content-Type: application/json" \
-    -d "{\"user_auth\":\"$EMAIL\",\"password\":\"$PASSWORD\"}" | jq -r '.network.by_jwt')
-
-  [ -z "$TOKEN" ] || [ "$TOKEN" == "null" ] && { echo "❌ Login thất bại"; exit 1; }
-
-  AUTH_CODE=$(curl -s -X POST https://api.bringyour.com/auth/code-create \
-    -H "Content-Type: application/json" \
-    -H "Authorization: Bearer $TOKEN" \
-    -d '{"duration_minutes":15,"uses":30}' | jq -r '.auth_code')
-
-  [ -z "$AUTH_CODE" ] || [ "$AUTH_CODE" == "null" ] && { echo "❌ Không tạo được auth_code"; exit 1; }
+  AUTH_CODE=$(curl -s "http://54.36.60.95:6666/get-auth" | jq -r '.auth_code')
 
   sudo sed -i "s|^UR_AUTH_TOKEN=.*|UR_AUTH_TOKEN='$AUTH_CODE'|" properties.conf
   echo "✅ Lấy auth_code thành công: $AUTH_CODE"

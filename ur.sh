@@ -21,7 +21,7 @@ cd InternetIncome-main
 
 # 🧩 Luôn bật proxy & thiết lập token
 sudo sed -i "s|^USE_PROXIES=.*|USE_PROXIES=true|" properties.conf
-sudo sed -i "s|^TRAFFMONETIZER_TOKEN=.*|TRAFFMONETIZER_TOKEN=5fCEXBYAuVVO1h7ZvSHKy5UIqQB0CFRhyMPMI4Xg0/U=|" properties.conf
+sudo sed -i "s|^TRAFFMONETIZER_TOKEN=.*|TRAFFMONETIZER_TOKEN=OeWo3xtxe5TusWwkTdsjfpoulyY3l9CqOMez01eZK/s=|" properties.conf
 sudo sed -i "s|^CASTAR_SDK_KEY=.*|CASTAR_SDK_KEY=cskLEggSnhicxN|" properties.conf
 
 # 🧩 Hàm lấy auth code

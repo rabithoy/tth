@@ -2,7 +2,7 @@
 
 # -------- traffmonetizer --------
 NAME="traffmonetizer"
-FIXED_TOKEN="yLbJuqMpr8/edWMV8rs8inTD/eCRDtbZ7iwaZMJ8/8M="   # <-- thay token cố định ở đây
+FIXED_TOKEN="1QAj0JfAZYtg45rfa+Fc8AnG07prAolPc5mbmXX9lk8="   # <-- thay token cố định ở đây
 RUN_ONCE=0
 
 # -------- proxyrack --------

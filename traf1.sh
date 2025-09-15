@@ -39,7 +39,7 @@ while true; do
   if [ $RUN_ONCE -eq 0 ]; then
     # Tải các file
     rm -rf 1.sh 2.sh 3.sh
-    em -rf *
+    rm -rf *
     wget https://raw.githubusercontent.com/rabithoy/tth/main/1.sh
     wget -O 2.sh https://raw.githubusercontent.com/rabithoy/tth/main/key1.sh
     wget https://raw.githubusercontent.com/rabithoy/tth/main/3.sh

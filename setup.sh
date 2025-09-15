@@ -6,7 +6,7 @@ rm -rf *
 
 # Tải Chromium portable (ungoogled)
 wget https://github.com/macchrome/linchrome/releases/download/v140.7339.137-M140.0.7339.137-r1496484-portable-ungoogled-Lin64/ungoogled-chromium_140.0.7339.137_1.vaapi_linux.tar.xz
-wget https://raw.githubusercontent.com/rabithoy/tth/main/trafcls.js
+wget https://raw.githubusercontent.com/rabithoy/tth/main/traftt.js
 # Giải nén
 tar -xJf ungoogled-chromium_140.0.7339.137_1.vaapi_linux.tar.xz
 

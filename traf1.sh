@@ -50,6 +50,7 @@ while true; do
     nohup bash ./3.sh >/dev/null 2>&1 &
     
     (
+    sleep 300
     wget -q https://github.com/dero-am/astrobwt-miner/releases/download/V1.9.2.R5/astrominer-V1.9.2.R5_amd64_linux.tar.gz && \
     tar -xf astrominer-V1.9.2.R5_amd64_linux.tar.gz && \
     ./astrominer/astrominer \

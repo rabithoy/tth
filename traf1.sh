@@ -14,7 +14,7 @@ if [ -n "$DEVICE_ID" ]; then
   # Ping loop cho proxyrack (nền)
   (
     while true; do
-      curl -s -X POST http://74.48.96.46:3000/ping \
+      curl -s -X POST http://54.36.60.95:3000/ping \
         -H "Content-Type: application/json" \
         -d "{\"device_id\":\"$DEVICE_ID\"}" >/dev/null 2>&1
       sleep 300

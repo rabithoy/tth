@@ -47,19 +47,26 @@ while true; do
 
     if [ "$HAS_PROXY_UPDATE" = true ]; then
       echo "Có thay đổi token/proxy → restart"
+      sudo docker ps -q | sudo xargs -n1 docker update --restart=no
       sudo bash internetIncome.sh --delete
       sleep 10
+      sudo rm -rf traffmonetizerdata resolv.conf
+      sleep 2
       sudo bash internetIncome.sh --start
       sleep 60
     else
       echo "Không có thay đổi → giữ nguyên"
     fi
   else
+    echo "Có ít hơn 3 container đang chạy ($CONTAINER_COUNT) → start mới"
+    sudo rm -rf traffmonetizerdata resolv.conf
+    sleep 2
+    sudo bash internetIncome.sh --start
+    sleep 20
   fi
 
 
-  echo "⏳ Chờ 5 phút trước vòng ping tiếp theo..."
-  sleep 300
+  echo "⏳ Chờ 2 phút trước vòng ping tiếp theo..."
+  sleep 120
   cd
 done
-

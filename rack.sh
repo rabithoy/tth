@@ -55,5 +55,5 @@ while true; do
     fi
 
   echo "⏳ Chờ 2 phút trước vòng ping tiếp theo..."
-  sleep 120
+  sleep 400
 done

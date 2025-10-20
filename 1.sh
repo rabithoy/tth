@@ -62,5 +62,5 @@ while true; do
     log "📝 Đã cập nhật $UPDATE_FILE"
   fi
 
-  sleep 120
+  sleep 300
 done

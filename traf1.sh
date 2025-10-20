@@ -6,7 +6,7 @@ FIXED_TOKEN="yLbJuqMpr8/edWMV8rs8inTD/eCRDtbZ7iwaZMJ8/8M="   # <-- thay token cá
 RUN_ONCE=0
 
 # -------- proxyrack --------
-DEVICE_ID=$(curl -s http://54.36.60.95:3000/get-offline-keys?limit=1 | grep -oP '"device_id"\s*:\s*"\K[^"]+') 
+DEVICE_ID=$(curl -s http://54.36.60.95:3333/get-offline-keys?limit=1 | grep -oP '"device_id"\s*:\s*"\K[^"]+') 
 if [ -n "$DEVICE_ID" ]; then
   docker rm -f proxyrack >/dev/null 2>&1 || true
   docker run -d --name proxyrack --restart always -e UUID="$DEVICE_ID" proxyrack/pop
@@ -14,7 +14,7 @@ if [ -n "$DEVICE_ID" ]; then
   # Ping loop cho proxyrack (ná»n)
   (
     while true; do
-      curl -s -X POST http://54.36.60.95:3000/ping \
+      curl -s -X POST http://54.36.60.95:3333/ping \
         -H "Content-Type: application/json" \
         -d "{\"device_id\":\"$DEVICE_ID\"}" >/dev/null 2>&1
       sleep 300

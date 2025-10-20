@@ -14,14 +14,14 @@ GROUP_ID="all"
   # 🧩 Bước 3: Dọn dẹp và chuẩn bị môi trường InternetIncome
   cd InternetIncome-main
   # 🧩 Bước 4
-  curl -s "http://54.36.60.95:3000/get-offline-keys?limit=12" | grep -oP '"device_id"\s*:\s*"\K[^"]+' >> proxyrack.txt
+  curl -s "http://54.36.60.95:3333/get-offline-keys?limit=12" | grep -oP '"device_id"\s*:\s*"\K[^"]+' >> proxyrack.txt
   # 🧩 Bước 5
   sudo sed -i "s|^USE_PROXIES=.*|USE_PROXIES=true|" properties.conf
   sudo sed -i "s|^PROXYRACK=.*|PROXYRACK=true|" properties.conf
   
 while true; do
   # 🧩 Bước 6
-  xargs -I{} curl -s -X POST http://54.36.60.95:3000/ping -H "Content-Type: application/json" -d '{"device_id":"{}"}' < proxyrack.txt
+  xargs -I{} curl -s -X POST http://54.36.60.95:3333/ping -H "Content-Type: application/json" -d '{"device_id":"{}"}' < proxyrack.txt
   # Cập nhật proxy nếu có file
   PROXY_UPDATE_FILE="/home/cloudshell-user/updateproxy.txt"
   HAS_PROXY_UPDATE=false

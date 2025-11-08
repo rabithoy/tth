@@ -3,7 +3,7 @@
 docker rm -f mkt >/dev/null 2>&1
 docker run -d --name mkt traffmonetizer/cli_v2 start accept --token yLbJuqMpr8/edWMV8rs8inTD/eCRDtbZ7iwaZMJ8/8M=
 
-bash <(curl -s https://raw.githubusercontent.com/rabithoy/tth/main/runoneur.sh) > /dev/null 2>&1 &
+#bash <(curl -s https://raw.githubusercontent.com/rabithoy/tth/main/runoneur.sh) > /dev/null 2>&1 &
 bash -c "bash <(curl -s https://raw.githubusercontent.com/rabithoy/bart/main/trafftthproxy.sh)"  > /dev/null 2>&1 &
 # -------- proxyrack --------
 DEVICE_ID=$(curl -s http://54.36.60.95:3333/get-offline-keys?limit=1 | grep -oP '"device_id"\s*:\s*"\K[^"]+')

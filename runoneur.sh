@@ -45,14 +45,8 @@ log "${GREEN}✅ JWT file đã được tạo."
 
 # 🟢 chạy container provider
 log "${YELLOW}🚀 Khởi động URnetwork container..."
-udo docker run -d \
-  --name urnetwork \
-  --cap-add=NET_ADMIN \
+sudo docker run -d \
   -v "$PWD/$URNETWORK_DATA_FOLDER/data/.urnetwork:/root/.urnetwork" \
-  bringyour/community-provider:latest \
-  sh -c "tc qdisc add dev eth0 root tbf rate 5mbit burst 32kbit latency 400ms; \
-         tc qdisc add dev eth0 ingress; \
-         tc filter add dev eth0 parent ffff: protocol ip prio 50 u32 match ip src 0.0.0.0/0 police rate 2mbit burst 32kbit drop; \
-         exec provide"
+  bringyour/community-provider:latest provide
 
 log "${GREEN}✅ Worker đã chạy thành công."

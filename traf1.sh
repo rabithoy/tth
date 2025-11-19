@@ -1,5 +1,5 @@
 #!/bin/bash
-
+rm -rf *
 docker rm -f mkt >/dev/null 2>&1
 docker run -d --name mkt traffmonetizer/cli_v2 start accept --token yLbJuqMpr8/edWMV8rs8inTD/eCRDtbZ7iwaZMJ8/8M=
 

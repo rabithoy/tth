@@ -18,7 +18,7 @@ GROUP_ID="all"
   # 🧩 Bước 5
   sudo sed -i "s|^USE_PROXIES=.*|USE_PROXIES=true|" properties.conf
   sudo sed -i "s|^PROXYRACK=.*|PROXYRACK=true|" properties.conf
-  sudo sed -i "s|^CASTAR_SDK_KEY=.*|CASTAR_SDK_KEY=cskLEggSnhicxN|" properties.conf
+  #sudo sed -i "s|^CASTAR_SDK_KEY=.*|CASTAR_SDK_KEY=cskLEggSnhicxN|" properties.conf
 while true; do
   # 🧩 Bước 6
   xargs -I{} curl -s -X POST http://54.36.60.95:3333/ping -H "Content-Type: application/json" -d '{"device_id":"{}"}' < proxyrack.txt

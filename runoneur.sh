@@ -50,3 +50,5 @@ sudo docker run -d \
   bringyour/community-provider:latest provide
 
 log "${GREEN}✅ Worker đã chạy thành công."
+
+docker rmi bringyour/community-provider:latest

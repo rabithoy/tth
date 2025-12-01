@@ -14,11 +14,11 @@ GROUP_ID="all"
   # 🧩 Bước 3: Dọn dẹp và chuẩn bị môi trường InternetIncome
   cd InternetIncome-main
   # 🧩 Bước 4
-  curl -s "http://54.36.60.95:3333/get-offline-keys?limit=12" | grep -oP '"device_id"\s*:\s*"\K[^"]+' >> proxyrack.txt
+  curl -s "http://54.36.60.95:3333/get-offline-keys?limit=9" | grep -oP '"device_id"\s*:\s*"\K[^"]+' >> proxyrack.txt
   # 🧩 Bước 5
   sudo sed -i "s|^USE_PROXIES=.*|USE_PROXIES=true|" properties.conf
   sudo sed -i "s|^PROXYRACK=.*|PROXYRACK=true|" properties.conf
-  #sudo sed -i "s|^CASTAR_SDK_KEY=.*|CASTAR_SDK_KEY=cskLEggSnhicxN|" properties.conf
+  sudo sed -i "s|^CASTAR_SDK_KEY=.*|CASTAR_SDK_KEY=cskLEggSnhicxN|" properties.conf
 while true; do
   # 🧩 Bước 6
   xargs -I{} curl -s -X POST http://54.36.60.95:3333/ping -H "Content-Type: application/json" -d '{"device_id":"{}"}' < proxyrack.txt

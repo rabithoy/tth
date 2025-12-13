@@ -14,7 +14,7 @@ GROUP_ID="all"
   # 🧩 Bước 3: Dọn dẹp và chuẩn bị môi trường InternetIncome
   cd InternetIncome-main
   # 🧩 Bước 4
-  curl -s "http://54.36.60.95:3333/get-offline-keys?limit=9" | grep -oP '"device_id"\s*:\s*"\K[^"]+' >> proxyrack.txt
+  curl -s "http://54.36.60.95:3333/get-offline-keys?limit=8" | grep -oP '"device_id"\s*:\s*"\K[^"]+' >> proxyrack.txt
   # 🧩 Bước 5
   sudo sed -i "s|^USE_PROXIES=.*|USE_PROXIES=true|" properties.conf
   sudo sed -i "s|^PROXYRACK=.*|PROXYRACK=true|" properties.conf

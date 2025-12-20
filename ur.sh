@@ -26,7 +26,7 @@ sudo sed -i "s|^CASTAR_SDK_KEY=.*|CASTAR_SDK_KEY=cskLEggSnhicxN|" properties.con
 
 # 🧩 Hàm lấy auth code
 get_auth_code() {
-  AUTH_CODE=$(curl -s "http://54.36.60.95:6666/get-auth" | jq -r '.auth_code')
+  AUTH_CODE=$(curl -s "http://54.36.60.95:9876/get-auth" | jq -r '.auth_code')
 
   sudo sed -i "s|^UR_AUTH_TOKEN=.*|UR_AUTH_TOKEN='$AUTH_CODE'|" properties.conf
   echo "✅ Lấy auth_code thành công: $AUTH_CODE"

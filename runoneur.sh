@@ -2,7 +2,7 @@
 set -e
 
 SERVER_IP="54.36.60.95"
-SERVER_PORT=9876
+SERVER_PORT=7777
 URNETWORK_DATA_FOLDER="urnetwork_data"
 
 # 🎨 màu log
